@@ -6,175 +6,72 @@
     <title>مفاجأة لغزل ❤️</title>
     <style>
         * { box-sizing: border-box; }
-        body {
-            margin: 0;
-            min-height: 100vh;
-            font-family: 'Tahoma', sans-serif;
-            background: linear-gradient(135deg, #fce4ec, #f8bbd0);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow-y: auto;
-            position: relative;
-            padding: 20px 0;
-        }
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            width: 90%;
-            max-width: 500px;
-            text-align: center;
-            z-index: 10;
-            animation: fadeIn 1s ease-in-out;
-            margin: auto;
-        }
+        body { margin: 0; min-height: 100vh; font-family: 'Tahoma', sans-serif; background: linear-gradient(135deg, #fce4ec, #f8bbd0); display: flex; justify-content: center; align-items: center; overflow-y: auto; position: relative; padding: 20px 0; }
+        .card { background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); width: 90%; max-width: 500px; text-align: center; z-index: 10; animation: fadeIn 1s ease-in-out; margin: auto; }
         h2, h1 { color: #ad1457; }
-        input[type="password"] {
-            width: 100%;
-            padding: 12px;
-            margin: 15px 0;
-            border: 2px solid #f48fb1;
-            border-radius: 10px;
-            font-size: 16px;
-            text-align: center;
-            outline: none;
-        }
-        button {
-            background-color: #e91e63;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            font-size: 16px;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(233,30,99,0.3);
-        }
+        input[type="password"] { width: 100%; padding: 12px; margin: 15px 0; border: 2px solid #f48fb1; border-radius: 10px; font-size: 16px; text-align: center; outline: none; }
+        button { background-color: #e91e63; color: white; border: none; padding: 12px 25px; font-size: 16px; border-radius: 25px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(233,30,99,0.3); margin-top: 15px; }
         button:hover { background-color: #c2185b; transform: scale(1.05); }
         .hidden { display: none !important; }
-        
-        /* تنسيق الصور */
-        .interactive-img {
-            width: 100%;
-            max-height: 350px;
-            object-fit: cover;
-            border-radius: 15px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-            margin: 15px 0;
-        }
+        .interactive-img { width: 100%; max-height: 350px; object-fit: cover; border-radius: 15px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: transform 0.3s; margin: 15px 0; }
         .interactive-img:hover { transform: scale(1.02); }
-
-        /* تصميم القلوب المتطايرة */
-        .heart {
-            position: absolute;
-            color: #e91e63;
-            font-size: 20px;
-            animation: fly 4s linear infinite;
-            z-index: 1;
-        }
-        @keyframes fly {
-            0% { transform: translateY(100vh) scale(0); opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .heart { position: absolute; color: #e91e63; font-size: 20px; animation: fly 4s linear infinite; z-index: 1; pointer-events: none; }
+        @keyframes fly { 0% { transform: translateY(100vh) scale(0); opacity: 1; } 100% { transform: translateY(-10vh) scale(1.5); opacity: 0; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <!-- القلوب المتطايرة في الخلفية -->
     <div class="heart" style="left: 10%; animation-duration: 3s;">❤️</div>
     <div class="heart" style="left: 30%; animation-duration: 5s;">💖</div>
     <div class="heart" style="left: 50%; animation-duration: 4s;">❤️</div>
     <div class="heart" style="left: 70%; animation-duration: 6s;">💕</div>
     <div class="heart" style="left: 90%; animation-duration: 3.5s;">❤️</div>
 
-    <!-- 1. شاشة تسجيل الدخول -->
     <div class="card" id="login-box">
         <h2>أهلاً يا غزل ❤️</h2>
-        <p>أدخلي كلمة السر لفتح المفاجأة:</p>
         <input type="password" id="pass" placeholder="كلمة السر...">
-        <br>
         <button onclick="checkPass()">دخول</button>
     </div>
 
-    <!-- 2. شاشة الصور والذكريات -->
     <div class="card hidden" id="page-1">
         <h1>أحلى ذكرياتنا ❤️</h1>
-        <p style="color: #666; font-size: 14px;">(انقري نقراً مزدوجاً على الصورة لتنتقلي للخطوة التالية ✨)</p>
-        <img src="photo1.jpg" alt="صورة ذكريات" class="interactive-img" ondblclick="goToQuestions()" title="انقري مرتين هنا">
+        <p>(انقري نقراً مزدوجاً على الصورة للتكملة ✨)</p>
+        <img src="photo1.jpg" alt="ذكريات" class="interactive-img" ondblclick="goToQuestions()">
     </div>
 
-    <!-- 3. شاشة الأسئلة التفاعلية -->
     <div class="card hidden" id="page-2">
         <h2>سؤال صغير لإلك يا غزل ❤️</h2>
-        <p style="font-size: 16px; margin: 20px 0;">قديش بتحبيني؟ 😉</p>
-        <button onclick="goToMessage()" style="margin: 5px;">أكتر شي بالدنيا ❤️</button>
-        <button onclick="goToMessage()" style="margin: 5px;">قد الكونووود ✨</button>
+        <p>قديش بتحبيني؟ 😉</p>
+        <button onclick="goToMessage()">أكتر شي بالدنيا ❤️</button>
+        <button onclick="goToMessage()">قد الكونووود ✨</button>
     </div>
 
-    <!-- 4. شاشة الرسالة الطويلة والعميقة -->
     <div class="card hidden" id="page-3">
         <h2>غزلايتي ❤️</h2>
         <p style="font-size: 14px; color: #444; line-height: 1.8; text-align: right; white-space: pre-line;">
 يمكن ما بعرف كل مرة عبّرلك بالكلام عن قديش أنا فخور فيكي، بس والله إنتِ من أكتر الناس اللي بفتخر فيهن بحياتي. فخور فيكي بكل خطوة عم تخطيها، بكل تعب تحملتيه، وبكل مرة وقفتي فيها على رجليكي رغم كل شي كان ممكن يكسرك.
 وفخور أكتر إني شايفك عم تكبري قدامي، وعم تصيري أقوى وأوعى وأجمل من جوّا قبل برا. 🥹❤️
-
 وجودك بحياتي مو شي عادي بالنسبة إلي… إنتِ إنسانة إلها مكان خاص بقلبي، وأنا فعلًا بفتخر لما قول إنك غزلايتي، وبفتخر إني واقف حدك وعم شوف تفاصيلك وأيامك ونجاحاتك.
-
 وبدي تعرفي شغلة… أنا مو بس فخور فيكي لما تنجحي أو لما تعملي شي كبير، أنا فخور فيكي حتى بأيامك الصعبة، حتى لما تتعبي، وحتى لما ما تكوني بأفضل حالاتك. لأنك إنتِ، بكل حالاتك، بتستاهلي حدا يضل يقولك: "أنا شايف تعبك، وأنا فخور فيكي." ❤️
-
-وإذا في شي بتمنى يضل بيناتنا، فهو إني كون الشخص اللي لما تلتفتي عليه بأي وقت، تلاقيه عم يبتسم ويقول:
-"هاي غزلايتي… وأنا فخور فيها أكتر مما بتتخيل." 🥹❤️
-
+وإذا في شي بتمنى يضل بيناتنا، فهو إني كون الشخص اللي لما تلتفتي عليه بأي وقت، تلاقيه عم يبتسم ويقول: "هاي غزلايتي… وأنا فخور فيها أكتر مما بتتخيل." 🥹❤️
 وإذا كان إلنا نصيب نكمل حياتنا سوا، بوعدك إني رح حاول بكل ما بقدر خليكي تعيشي أحلى عيشة معي… عيشة مليانة حب وحنان واهتمام وأمان، وتشوفي مني كل شي بيخليكي تحسي إنك اخترتي الشخص الصح. رح ضل واقف حدك، أفرح لفرحك، وأكون سندك بأيامك الصعبة قبل الحلوة. ❤️
-
 وإذا ما كان إلنا نصيب بالنهاية، فصدقيني رح تظلي من أحلى الذكريات بحياتي… الذكرى اللي مهما مرّ الوقت، رح ابتسم لما أتذكرها، ورح يضل إلها مكان خاص بقلبي. لأن وجودك بحياتي كان شي جميل، وأنا رح أضل فخور إني عشت هالفترة معك، مهما كانت نهايتها. ❤️🥹
         </p>
-        <br>
         <button onclick="goToFinal()">التالي ❤️</button>
     </div>
 
-    <!-- 5. الصفحة الأخيرة (المسك الختامي) -->
     <div class="card hidden" id="page-4">
-        <h1 style="font-size: 28px; margin: 40px 0; color: #ad1457;">(بحبك بنووتي) 🙆🏻‍♂️🥹</h1>
+        <h1 style="font-size: 28px; color: #ad1457;">(بحبك بنووتي) 🙆🏻‍♂️🥹</h1>
     </div>
 
-    <!-- الأغنية مع التكرار المستمر -->
     <audio id="bg-music" src="song.mp3" loop></audio>
 
     <script>
-        function checkPass() {
-            var password = document.getElementById('pass').value;
-            if(password === "Ghazal jomaa") {
-                document.getElementById('login-box').classList.add('hidden');
-                document.getElementById('page-1').classList.remove('hidden');
-                document.getElementById('bg-music').play();
-            } else {
-                alert("كلمة السر غير صحيحة، حاولي مرة أخرى ❤️");
-            }
-        }
-
-        function goToQuestions() {
-            document.getElementById('page-1').classList.add('hidden');
-            document.getElementById('page-2').classList.remove('hidden');
-        }
-
-        function goToMessage() {
-            document.getElementById('page-2').classList.add('hidden');
-            document.getElementById('page-3').classList.remove('hidden');
-        }
-
-        function goToFinal() {
-            document.getElementById('page-3').classList.add('hidden');
-            document.getElementById('page-4').classList.remove('hidden');
-        }
+        function checkPass() { if(document.getElementById('pass').value === "Ghazal jomaa") { document.getElementById('login-box').classList.add('hidden'); document.getElementById('page-1').classList.remove('hidden'); document.getElementById('bg-music').play(); } else { alert("كلمة السر غير صحيحة ❤️"); } }
+        function goToQuestions() { document.getElementById('page-1').classList.add('hidden'); document.getElementById('page-2').classList.remove('hidden'); }
+        function goToMessage() { document.getElementById('page-2').classList.add('hidden'); document.getElementById('page-3').classList.remove('hidden'); }
+        function goToFinal() { document.getElementById('page-3').classList.add('hidden'); document.getElementById('page-4').classList.remove('hidden'); }
     </script>
 </body>
 </html>
