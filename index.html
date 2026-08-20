@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ghazal Jomaa ❤️</title>
+<style>
+*{box-sizing:border-box}
+:root{--pink:#d94b78;--deep:#9e3155;--soft:#fff0f5;--line:#e8b7c8}
+html,body{margin:0;min-height:100%;font-family:"Tahoma","Arial",sans-serif}
+body{background:linear-gradient(180deg,#ffe7f0,#fff7fa);color:#6d3a4d;overflow-x:hidden}
+.app{width:100%;max-width:600px;margin:auto;min-height:100vh;padding:20px 15px}
+.page{min-height:100vh;display:flex;align-items:center;justify-content:center}
+.card{width:100%;background:rgba(255,255,255,.94);border-radius:30px;padding:25px;box-shadow:0 10px 30px rgba(157,55,91,.1);text-align:center}
+.logo{font-size:50px;margin-bottom:10px}
+h1{margin:0;color:#74384e;font-size:30px}
+h2{color:#a33458;font-size:24px;margin-bottom:20px}
+.btn{border:0;border-radius:50px;background:var(--pink);color:#fff;padding:15px 30px;font-size:18px;font-weight:bold;cursor:pointer;width:100%;margin-top:10px}
+.btn.secondary{background:#fff;color:var(--deep);border:2px solid var(--line)}
+.option{display:block;width:100%;margin:10px 0;padding:15px;border-radius:15px;border:2px solid var(--line);background:#fff;font-size:18px;font-weight:bold;cursor:pointer}
+.option.correct{background:#42a36a;color:#fff;border-color:#42a36a}
+.option.wrong{background:#d84b5d;color:#fff;border-color:#d84b5d}
+.feedback-msg{font-size:20px;font-weight:bold;margin:15px 0;height:30px}
+.memory img{width:100%;height:350px;object-fit:cover;border-radius:20px;background:#eee}
+</style>
+</head>
+<body>
+
+<audio id="bgMusic" src="song.mp3" loop></audio>
+
+<div class="app"><main id="root"></main></div>
+
+<script>
+const photos = [
+ {src:"photo1.jpg", caption:"أحلى الذكريات ❤️"},
+ {src:"photo2.jpg", caption:"تفاصيل صغيرة بس بتعنيلي كتير 🥹"},
+ {src:"photo3.jpg", caption:"لحظة من اللحظات اللي ما بتننسى ❤️"},
+ {src:"photo4.jpg", caption:"والمشوار الحلو لسه بأوله 😚"}
+];
+
+const questions = [
+ {q:"ايمت أول مرة جبتلك وردة؟ 🌹", options:["2025 😌","2024 🫂"], correct:0},
+ {q:"ايمت عيد ميلادي؟ 🎂", options:["21/7/2003 🤔","21/9/2003 😂"], correct:0},
+ {q:"بتحبيني؟ 🥹", options:["اي 🥹","لا 😡"], correct:0},
+ {q:"مرتاحه معي؟ ❤️", options:["اي 😚","لا 🥺💔"], correct:0},
+ {q:"تتوقعي ح كون الزوج المثالي؟ 😌", options:["اي 😌","برضو اي 🙂"], correct:0},
+ {q:"بحبك؟ ❤️‍🔥", options:["اي 😉","عدد كل شي بالدنيا ❤️‍🔥😚😂"], correct:1}
+];
+
+let screen="password", memory=0, q=0, score=0, answers={};
+
+function render(){
+ const root=document.getElementById("root");
+ let out="";
+ if(screen==="password"){
+   out=`<div class="card"><div class="logo">🔐❤️</div><h1>عندي إلك شغلة صغيرة...</h1><p>اكتبي كلمة السر لتفتحيها 🫣</p><input id="pw" type="password" style="width:100%;padding:15px;border-radius:10px;border:1px solid #ccc;text-align:center" placeholder="كلمة السر"><div id="err" style="color:red;margin:10px"></div><button class="btn" onclick="checkPassword()">دخول ❤️</button></div>`;
+ } else if(screen==="intro"){
+   out=`<div class="card"><h1>24/9/2023</h1><p>من هون بلشت حكاية إلها مكان خاص بقلبي...</p><button class="btn" onclick="screen='memory';render()">Next ❤️</button></div>`;
+ } else if(screen==="memory"){
+   const p=photos[memory];
+   out=`<div class="card"><div class="memory"><img src="${p.src}" alt="memory"><p>${p.caption}</p></div><div style="display:flex;gap:5px"><button class="btn secondary" onclick="prevMemory()">السابق</button><button class="btn" onclick="nextMemory()">التالي</button></div></div>`;
+ } else if(screen==="quiz"){
+   const item=questions[q], selected=answers[q];
+   let fb = selected !== undefined ? (selected===item.correct ? "برافووو يا كوووتتي 🥰" : "بدي نتفككك😡") : "";
+   out=`<div class="card"><h2>${item.q}</h2>${item.options.map((x,i)=>{
+     let cls = selected===undefined ? "" : (i===item.correct ? "correct" : (i===selected ? "wrong" : ""));
+     return `<button class="option ${cls}" onclick="answer(${i})">${x}</button>`;
+   }).join("")}<div class="feedback-msg">${fb}</div>${selected!==undefined ? `<button class="btn" onclick="nextQuestion()">السؤال التالي ❤️</button>` : "" }</div>`;
+ } else {
+   out=`<div class="card"><h1>خلصنا 🥹❤️</h1><p>نتيجتك ${score} / ${questions.length}</p><button class="btn" onclick="location.reload()">نعيدها؟ 😚</button></div>`;
+ }
+ root.innerHTML=out;
+}
+
+function checkPassword(){
+ if(document.getElementById("pw").value==="Ghazal jomaa"){
+   document.getElementById("bgMusic").play();
+   screen="intro"; render();
+ } else document.getElementById("err").textContent="كلمة السر غلط 😭";
+}
+function nextMemory(){ memory<photos.length-1 ? (memory++, render()) : (screen="quiz", render()); }
+function prevMemory(){ if(memory>0) {memory--; render()} }
+function answer(i){ if(answers[q]===undefined) {answers[q]=i; if(i===questions[q].correct) score++; render()} }
+function nextQuestion(){ q<questions.length-1 ? (q++, render()) : (screen="result", render()); }
+render();
+</script>
+</body>
+</html>
