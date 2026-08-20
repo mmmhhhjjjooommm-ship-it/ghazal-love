@@ -99,7 +99,8 @@ function render(){
  } else if(screen==="result"){
    out=`<div class="card"><h1>خلصنا الأسئلة 🥹❤️</h1><p>نتيجتك ${score} / ${questions.length}</p><button class="btn" onclick="screen='message';render()">قراءة الرسالة ❤️</button></div>`;
  } else if(screen==="message"){
-   out=`<div class="card" style="max-height: 80vh; overflow-y: auto; text-align: right;">
+   // استبدلنا الكرت كاملاً بـ div يحمل معرف واضح لنتحكم فيه مباشرة بالبرمجة
+   out=`<div class="card" id="mainCard" style="max-height: 80vh; overflow-y: auto; text-align: right;">
      <h2 style="text-align: center;">غزلايتي ❤️</h2>
      <p style="font-size: 14px; color: #444; line-height: 1.8; white-space: pre-line;">
 يمكن ما بعرف كل مرة عبّرلك بالكلام عن قديش أنا فخور فيكي، بس والله إنتِ من أكتر الناس اللي بفتخر فيهن بحياتي. فخور فيكي بكل خطوة عم تخطيها، بكل تعب تحملتيه، وبكل مرة وقفتي فيها على رجليكي رغم كل شي كان ممكن يكسرك.
@@ -112,11 +113,11 @@ function render(){
 وإذا في شي بتمنى يضل بيناتنا، فهو إني كون الشخص اللي لما تلتفتي عليه بأي وقت، تلاقيه عم يبتسم ويقول:
 "هاي غزلايتي… وأنا فخور فيها أكتر مما بتتخيل." 🥹❤️
 
-وإذا كان إلنا نصيب نكمل حياتنا سوا، بوعدك إني رح حاول بكل ما بقدر خليكي تعيشي أحلى عيشة معي… عيشة مليانة حب والحنان واهتمام وأمان، وتشوفي مني كل شي بيخليكي تحسي إنك اخترتي الشخص الصح. رح ضل واقف حدك، أفرح لفرحك، وأكون سندك بأيامك الصعبة قبل الحلوة. ❤️
+وإذا كان إلنا نصيب نكمل حياتنا سوا، بوعدك إني رح حاول بكل ما بقدر خليكي تعيشي أحلى عيشة معي… عيشة مليانة حب وحنان واهتمام وأمان، وتشوفي مني كل شي بيخليكي تحسي إنك اخترتي الشخص الصح. رح ضل واقف حدك، أفرح لفرحك، وأكون سندك بأيامك الصعبة قبل الحلوة. ❤️
 
 وإذا ما كان إلنا نصيب بالنهاية، فصدقيني رح تظلي من أحلى الذكريات بحياتي… الذكرى اللي مهما مرّ الوقت، رح ابتسم لما أتذكرها، ورح يضل إلها مكان خاص بقلبي. لأن وجودك بحياتي كان شي جميل، وأنا رح أضل فخور إني عشت هالفترة معك، مهما كانت نهايتها. ❤️🥹
      </p>
-     <button class="btn" onclick="goToFinal()">التالي ❤️</button>
+     <button class="btn" onclick="forceShowFinal()">التالي ❤️</button>
    </div>`;
  } else if(screen==="final"){
    out=`<div class="card">
@@ -137,7 +138,16 @@ function nextMemory(){ memory<photos.length-1 ? (memory++, render()) : (screen="
 function prevMemory(){ if(memory>0) {memory--; render()} }
 function answer(i){ if(answers[q]===undefined) {answers[q]=i; if(i===questions[q].correct) score++; render()} }
 function nextQuestion(){ q<questions.length-1 ? (q++, render()) : (screen="result", render()); }
-function goToFinal(){ screen="final"; render(); }
+
+// هذه الدالة المباشرة ستستبدل محتوى الكرت بالكامل بالصفحة الأخيرة فوراً وبدون أي أعطال
+function forceShowFinal(){
+ screen="final";
+ document.getElementById("mainCard").innerHTML = `
+   <h1 style="font-size: 28px; margin: 40px 0; color: #ad1457;">(بحبك بنووتي) 🙆🏻‍♂️🥹</h1>
+   <button class="btn secondary" onclick="location.reload()">من الأول 🔄</button>
+ `;
+}
+
 render();
 </script>
 </body>
