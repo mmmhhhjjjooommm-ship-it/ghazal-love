@@ -81,7 +81,7 @@ function render(){
    const p=photos[memory];
    out=`<div class="card">
      <div class="memory">
-       <img src="${p.src}" alt="memory" ondblclick="nextMemory()" title="انقري مرتين للتنتقلي للبعدها">
+       <img src="${p.src}" alt="memory" ondblclick="nextMemory()" title="انقري مرتين لتنتقلي للبعدها">
        <p>${p.caption} <br><span style="font-size: 12px; color: #888;">(فيكِ تكبيس زر التالي، أو انقري مرتين على الصورة ✨)</span></p>
      </div>
      <div style="display:flex;gap:5px">
@@ -98,7 +98,7 @@ function render(){
    }).join("")}<div class="feedback-msg">${fb}</div>${selected!==undefined ? `<button class="btn" onclick="nextQuestion()">السؤال التالي ❤️</button>` : "" }</div>`;
  } else if(screen==="result"){
    out=`<div class="card"><h1>خلصنا الأسئلة 🥹❤️</h1><p>نتيجتك ${score} / ${questions.length}</p><button class="btn" onclick="screen='message';render()">قراءة الرسالة ❤️</button></div>`;
- } else if(screen="message"){
+ } else if(screen==="message"){
    out=`<div class="card" style="max-height: 80vh; overflow-y: auto; text-align: right;">
      <h2 style="text-align: center;">غزلايتي ❤️</h2>
      <p style="font-size: 14px; color: #444; line-height: 1.8; white-space: pre-line;">
