@@ -53,9 +53,9 @@
             box-shadow: 0 4px 15px rgba(233,30,99,0.3);
         }
         button:hover { background-color: #c2185b; transform: scale(1.05); }
-        .hidden { display: none; }
+        .hidden { display: none !important; }
         
-        /* تنسيق الصور مع خاصية النقر المزدوج */
+        /* تنسيق الصور */
         .interactive-img {
             width: 100%;
             max-height: 350px;
@@ -66,9 +66,7 @@
             transition: transform 0.3s;
             margin: 15px 0;
         }
-        .interactive-img:hover {
-            transform: scale(1.02);
-        }
+        .interactive-img:hover { transform: scale(1.02); }
 
         /* تصميم القلوب المتطايرة */
         .heart {
@@ -97,7 +95,7 @@
     <div class="heart" style="left: 70%; animation-duration: 6s;">💕</div>
     <div class="heart" style="left: 90%; animation-duration: 3.5s;">❤️</div>
 
-    <!-- شاشة تسجيل الدخول -->
+    <!-- 1. شاشة تسجيل الدخول -->
     <div class="card" id="login-box">
         <h2>أهلاً يا غزل ❤️</h2>
         <p>أدخلي كلمة السر لفتح المفاجأة:</p>
@@ -106,18 +104,25 @@
         <button onclick="checkPass()">دخول</button>
     </div>
 
-    <!-- الصفحة الأولى: الصور (انقر نقراً مزدوجاً على الصورة للانتقال للرسالة) -->
+    <!-- 2. شاشة الصور والذكريات -->
     <div class="card hidden" id="page-1">
         <h1>أحلى ذكرياتنا ❤️</h1>
-        <p style="color: #666; font-size: 14px;">(انقري نقراً مزدوجاً على الصورة لتنتقلي إلى الصفحة التالية ✨)</p>
-        <!-- استبدل photo1.jpg بصورة حقيقية عندك أو اتركه هكذا -->
-        <img src="photo1.jpg" alt="صورة ذكريات" class="interactive-img" ondblclick="nextPage()" title="انقري مرتين هنا للانتقال">
+        <p style="color: #666; font-size: 14px;">(انقري نقراً مزدوجاً على الصورة لتنتقلي للخطوة التالية ✨)</p>
+        <img src="photo1.jpg" alt="صورة ذكريات" class="interactive-img" ondblclick="goToQuestions()" title="انقري مرتين هنا">
     </div>
 
-    <!-- الصفحة الثانية والأخيرة: الرسالة -->
+    <!-- 3. شاشة الأسئلة التفاعلية -->
     <div class="card hidden" id="page-2">
+        <h2>سؤال صغير لإلك يا غزل ❤️</h2>
+        <p style="font-size: 16px; margin: 20px 0;">قديش بتحبيني؟ 😉</p>
+        <button onclick="goToMessage()" style="margin: 5px;">أكتر شي بالدنيا ❤️</button>
+        <button onclick="goToMessage()" style="margin: 5px;">قد الكونووود ✨</button>
+    </div>
+
+    <!-- 4. شاشة الرسالة الطويلة والعميقة -->
+    <div class="card hidden" id="page-3">
         <h2>غزلايتي ❤️</h2>
-        <p style="font-size: 15px; color: #444; line-height: 1.8; text-align: right; white-space: pre-line;">
+        <p style="font-size: 14px; color: #444; line-height: 1.8; text-align: right; white-space: pre-line;">
 يمكن ما بعرف كل مرة عبّرلك بالكلام عن قديش أنا فخور فيكي، بس والله إنتِ من أكتر الناس اللي بفتخر فيهن بحياتي. فخور فيكي بكل خطوة عم تخطيها، بكل تعب تحملتيه، وبكل مرة وقفتي فيها على رجليكي رغم كل شي كان ممكن يكسرك.
 وفخور أكتر إني شايفك عم تكبري قدامي، وعم تصيري أقوى وأوعى وأجمل من جوّا قبل برا. 🥹❤️
 
@@ -132,9 +137,16 @@
 
 وإذا ما كان إلنا نصيب بالنهاية، فصدقيني رح تظلي من أحلى الذكريات بحياتي… الذكرى اللي مهما مرّ الوقت، رح ابتسم لما أتذكرها، ورح يضل إلها مكان خاص بقلبي. لأن وجودك بحياتي كان شي جميل، وأنا رح أضل فخور إني عشت هالفترة معك، مهما كانت نهايتها. ❤️🥹
         </p>
+        <br>
+        <button onclick="goToFinal()">التالي ❤️</button>
     </div>
 
-    <!-- الأغنية مع التكرار التلقائي -->
+    <!-- 5. الصفحة الأخيرة (المسك الختامي) -->
+    <div class="card hidden" id="page-4">
+        <h1 style="font-size: 28px; margin: 40px 0; color: #ad1457;">(بحبك بنووتي) 🙆🏻‍♂️🥹</h1>
+    </div>
+
+    <!-- الأغنية مع التكرار المستمر -->
     <audio id="bg-music" src="song.mp3" loop></audio>
 
     <script>
@@ -149,9 +161,19 @@
             }
         }
 
-        function nextPage() {
+        function goToQuestions() {
             document.getElementById('page-1').classList.add('hidden');
             document.getElementById('page-2').classList.remove('hidden');
+        }
+
+        function goToMessage() {
+            document.getElementById('page-2').classList.add('hidden');
+            document.getElementById('page-3').classList.remove('hidden');
+        }
+
+        function goToFinal() {
+            document.getElementById('page-3').classList.add('hidden');
+            document.getElementById('page-4').classList.remove('hidden');
         }
     </script>
 </body>
